@@ -216,6 +216,7 @@ const chartTypes = [
   { id: "radar", name: "Radar Chart", icon: Radar },
 ]
 
+
 export default function DataVisualizationDashboard() {
   const [selectedChartType, setSelectedChartType] = useState<ChartType>("bar")
   const [xAxis, setXAxis] = useState<string>("")
@@ -373,92 +374,25 @@ export default function DataVisualizationDashboard() {
           </p>
         </div> */}
 
-        <div className="">
 
-
-          {/* Axis Configuration */}
-          <Card className="">
-            <CardHeader>
-              <CardTitle className="text-lg">Chart Configuration</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {/* X-Axis Drop Zone */}
-              <div className="flex items-center">
-                <label className="text-sm font-medium text-gray-700 mb-2 block w-20">X-Axis</label>
-                <div
-                  onDragOver={handleDragOver}
-                  onDrop={handleDropOnXAxis}
-                  className={`p-4 w-full border-2 border-dashed rounded-lg min-h-[20px] flex items-center justify-center transition-colors ${xAxis ? "border-green-300 bg-green-50" : "border-gray-300 bg-gray-50 hover:border-gray-400"
-                    }`}
-                >
-                  {xAxis ? (
-                    <Badge variant="secondary" className="bg-green-100 text-green-800">
-                      {xAxis}
-                    </Badge>
-                  ) : (
-                    <span className="text-gray-500 text-sm">Drop column here</span>
-                  )}
-                </div>
-              </div>
-
-              {/* Y-Axis Drop Zone */}
-              <div className="flex items-center">
-                <label className="text-sm font-medium text-gray-700 mb-2 block w-20">Y-Axis</label>
-                <div
-                  onDragOver={handleDragOver}
-                  onDrop={handleDropOnYAxis}
-                  className={`p-4 w-full border-2 border-dashed rounded-lg min-h-[20px] flex items-center justify-center transition-colors ${yAxis ? "border-green-300 bg-green-50" : "border-gray-300 bg-gray-50 hover:border-gray-400"
-                    }`}
-                >
-                  {yAxis ? (
-                    <Badge variant="secondary" className="bg-green-100 text-green-800">
-                      {yAxis}
-                    </Badge>
-                  ) : (
-                    <span className="text-gray-500 text-sm">Drop column here</span>
-                  )}
-                </div>
-              </div>
-              <div className="justify-end flex gap-6">
-                <Button
-                  onClick={() => {
-                    setXAxis("")
-                    setYAxis("")
-                  }}
-                  variant="outline"
-                  className=""
-                >
-                  Clear Selection
-                </Button>
-
-                <GraphList chartTypes={chartTypes} selectedChartType={selectedChartType} setSelectedChartType={setSelectedChartType} />
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Chart Types */}
-
-
-        </div>
-
-        {/* Chart Display */}
-        <div className="flex gap-6">
+        <div className="flex gap-6 w-full h-screen">
           {/* Data Columns */}
-          <Card className="w-72">
+          <Card className="w-96">
             <CardHeader>
               <CardTitle className="text-lg">Data Columns</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-2 max-h-96 w-auto overflow-y-auto">
+              <div className="space-y-2">
                 {columns && columns.length > 0 ? (
                   columns.map((column) => (
                     <div
                       key={column}
                       draggable
                       onDragStart={() => handleDragStart(column)}
-                      className="p-3 bg-blue-50 border border-blue-200 rounded-lg cursor-move hover:bg-blue-100 transition-colors"
+                      className="p-3 bg-blue-50 border border-blue-200 rounded-sm cursor-move hover:bg-blue-100 transition-colors"
                     >
                       <span className="font-medium text-blue-800">{column}</span>
+                      {/* <span>{typeof column}</span> */}
                     </div>
                   ))
                 ) : (
@@ -467,35 +401,110 @@ export default function DataVisualizationDashboard() {
               </div>
             </CardContent>
           </Card>
-          <Card className="w-full">
-            <CardHeader>
-              <CardTitle className="text-xl">
-                {selectedChartType.charAt(0).toUpperCase() + selectedChartType.slice(1).replace("-", " ")} Chart
-                {xAxis && yAxis && (
-                  <span className="text-sm font-normal text-gray-600 ml-2">
-                    ({xAxis} vs {yAxis})
-                  </span>
-                )}
-                {(xAxis || yAxis) && !(xAxis && yAxis) && (
-                  <span className="text-sm font-normal text-gray-600 ml-2">({xAxis || yAxis})</span>
-                )}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="h-96">{renderChart()}</div>
-            </CardContent>
-          </Card>
+
+          <div className="w-full flex flex-col gap-3">
+            {/* Axis Configuration */}
+            <Card className="">
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center justify-between">
+                  <div>
+                    Chart Configuration
+                  </div>
+                  <div className="justify-end flex gap-6">
+                    <Button
+                      onClick={() => {
+                        setXAxis("")
+                        setYAxis("")
+                      }}
+                      variant="outline"
+                      className=""
+                    >
+                      Clear Selection
+                    </Button>
+
+                    {/* Chart Types */}
+                    <GraphList chartTypes={chartTypes} selectedChartType={selectedChartType} setSelectedChartType={setSelectedChartType} />
+                  </div>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="grid grid-cols-2 px-10 gap-8">
+                {/* X-Axis Drop Zone */}
+                <div className="flex items-center">
+                  {/* <label className="text-sm font-medium text-gray-700 mb-2 block w-20">X-Axis</label> */}
+                  <div
+                    onDragOver={handleDragOver}
+                    onDrop={handleDropOnXAxis}
+                    className={`p-4 w-full border-2 border-dashed rounded-lg h-40 flex items-center justify-center transition-colors ${xAxis ? "border-green-300 bg-green-50" : "border-gray-300 bg-gray-50 hover:border-gray-400"
+                      }`}
+                  >
+                    {xAxis ? (
+                      <Badge variant="secondary" className="bg-green-100 text-green-800">
+                        {xAxis}
+                      </Badge>
+                    ) : (
+                      <div className="flex flex-col items-center">
+                        <span>x-Axis</span>
+                        <span className="text-gray-500 text-sm">Drop column here</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Y-Axis Drop Zone */}
+                <div className="flex items-center">
+                  {/* <label className="text-sm font-medium text-gray-700 mb-2 block w-20">Y-Axis</label> */}
+                  <div
+                    onDragOver={handleDragOver}
+                    onDrop={handleDropOnYAxis}
+                    className={`p-4 w-full border-2 border-dashed rounded-lg h-40 flex items-center justify-center transition-colors ${yAxis ? "border-green-300 bg-green-50" : "border-gray-300 bg-gray-50 hover:border-gray-400"
+                      }`}
+                  >
+                    {yAxis ? (
+                      <Badge variant="secondary" className="bg-green-100 text-green-800">
+                        {yAxis}
+                      </Badge>
+                    ) : (
+                      <div className="flex flex-col items-center">
+                        <span>Y-Axis</span>
+                        <span className="text-gray-500 text-sm">Drop column here</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+              </CardContent>
+            </Card>
+            {/* Chart Display */}
+            <Card className="w-full">
+              <CardHeader>
+                <CardTitle className="text-xl">
+                  {selectedChartType.charAt(0).toUpperCase() + selectedChartType.slice(1).replace("-", " ")} Chart
+                  {xAxis && yAxis && (
+                    <span className="text-sm font-normal text-gray-600 ml-2">
+                      ({xAxis} vs {yAxis})
+                    </span>
+                  )}
+                  {(xAxis || yAxis) && !(xAxis && yAxis) && (
+                    <span className="text-sm font-normal text-gray-600 ml-2">({xAxis || yAxis})</span>
+                  )}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="h-96">{renderChart()}</div>
+              </CardContent>
+            </Card>
+          </div>
           {/* Data Preview */}
-          <Card className="w-80">
+          <Card className="w-80 h-full">
             <CardHeader>
               <CardTitle className="text-lg">Data Preview</CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="max-h-96 overflow-auto">
+            <CardContent className="overflow-auto">
+              <div className="h-full">
                 <div className="space-y-2">
                   {sampleData && sampleData.length > 0 ? (
                     sampleData.slice(0,).map((row, index) => (
-                      <div key={index} className="p-2 bg-gray-50 rounded text-xs">
+                      <div key={index} className="p-2 h-full rounded text-xs">
                         {row &&
                           Object.entries(row)
                             .filter(([key]) => key !== "id")
@@ -514,7 +523,7 @@ export default function DataVisualizationDashboard() {
                   )}
                   {/* {sampleData && sampleData.length > 0 && (
                     <p className="text-xs text-gray-500 text-center">Showing 3 of {sampleData.length} rows</p>
-                  )} */}
+                    )} */}
                 </div>
               </div>
             </CardContent>
