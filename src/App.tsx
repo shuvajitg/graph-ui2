@@ -443,7 +443,7 @@ export default function DataVisualizationDashboard() {
                       </Badge>
                     ) : (
                       <div className="flex flex-col items-center">
-                        <span>x-Axis</span>
+                        <span>X-Axis</span>
                         <span className="text-gray-500 text-sm">Drop column here</span>
                       </div>
                     )}
@@ -479,11 +479,11 @@ export default function DataVisualizationDashboard() {
               <CardHeader>
                 <CardTitle className="text-xl">
                   {selectedChartType.charAt(0).toUpperCase() + selectedChartType.slice(1).replace("-", " ")} Chart
-                  {xAxis && yAxis && (
+                  {/* {xAxis && yAxis && (
                     <span className="text-sm font-normal text-gray-600 ml-2">
                       ({xAxis} vs {yAxis})
                     </span>
-                  )}
+                  )} */}
                   {(xAxis || yAxis) && !(xAxis && yAxis) && (
                     <span className="text-sm font-normal text-gray-600 ml-2">({xAxis || yAxis})</span>
                   )}
