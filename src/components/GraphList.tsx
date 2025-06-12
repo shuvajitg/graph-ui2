@@ -1,12 +1,3 @@
-import {
-    Sheet,
-    SheetClose,
-    SheetContent,
-    SheetFooter,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import type { ChartType } from "@/App"
 
@@ -23,42 +14,45 @@ type GraphListProps = {
 
 function GraphList({ chartTypes, setSelectedChartType, selectedChartType }: GraphListProps) {
     return (
-        <Sheet>
-            <SheetTrigger asChild>
-                <Button variant="outline">Chart Types</Button>
-            </SheetTrigger>
-            <SheetContent>
-                <SheetHeader>
-                    <SheetTitle>Chart Types</SheetTitle>
-                </SheetHeader>
-                <div className="space-y-2 px-6 overflow-y-auto">
-                    {chartTypes && chartTypes.length > 0 ? (
-                        chartTypes.map((chart) => {
-                            const Icon = chart.icon
-                            return (
-                                <Button
-                                    key={chart.id}
-                                    onClick={() => setSelectedChartType(chart.id as ChartType)}
-                                    variant={selectedChartType === chart.id ? "default" : "outline"}
-                                    className="w-full justify-start text-sm"
-                                    size="sm"
-                                >
-                                    <Icon className="h-4 w-4 mr-2" />
-                                    {chart.name}
-                                </Button>
-                            )
-                        })
-                    ) : (
-                        <div className="text-gray-500 text-sm">No chart types available</div>
-                    )}
-                </div>
-                <SheetFooter>
-                    <SheetClose asChild>
-                        <Button variant="outline">Close</Button>
-                    </SheetClose>
-                </SheetFooter>
-            </SheetContent>
-        </Sheet>
+        // <Sheet>
+        //     <SheetTrigger asChild>
+        //         <Button variant="outline">Chart Types</Button>
+        //     </SheetTrigger>
+        //     <SheetContent>
+        //         <SheetHeader>
+        //             <SheetTitle>Chart Types</SheetTitle>
+        //         </SheetHeader>
+        <div className="space-y-2 overflow-y-auto mt-4">
+            <h1 className="text-xl font-semibold mb-6">Chart Types</h1>
+            <div className="grid grid-cols-5 gap-2">
+                {chartTypes && chartTypes.length > 0 ? (
+                    chartTypes.map((chart) => {
+                        const Icon = chart.icon
+                        return (
+                            <Button
+                                key={chart.id}
+                                onClick={() => setSelectedChartType(chart.id as ChartType)}
+                                variant={selectedChartType === chart.id ? "default" : "outline"}
+                                className="h-10 justify-center text-sm cursor-pointer"
+                                size="sm"
+                            >
+                                <Icon className="h-4" />
+                                {/* {chart.name} */}
+                            </Button>
+                        )
+                    })
+                ) : (
+                    <div className="text-gray-500 text-sm">No chart types available</div>
+                )}
+            </div>
+        </div>
+        //         <SheetFooter>
+        //             <SheetClose asChild>
+        //                 <Button variant="outline">Close</Button>
+        //             </SheetClose>
+        //         </SheetFooter>
+        //     </SheetContent>
+        // </Sheet>
     )
 }
 

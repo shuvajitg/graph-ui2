@@ -5,7 +5,6 @@ import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
 import {
   BarChart3,
   PieChart,
@@ -365,8 +364,8 @@ export default function DataVisualizationDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="w-full mx-auto space-y-6">
+    <div className="h-screen w-screen bg-gray-50 p-6">
+      <div className="w-full h-full mx-auto space-y-6">
         {/* <div className="text-center">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Advanced Data Visualization Dashboard</h1>
           <p className="text-gray-600">
@@ -375,151 +374,119 @@ export default function DataVisualizationDashboard() {
         </div> */}
 
 
-        <div className="flex gap-6 w-full h-screen">
+        <div className="flex gap-6 w-full h-full">
           {/* Data Columns */}
           <Card className="w-96">
             <CardHeader>
               <CardTitle className="text-lg">Data Columns</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-2">
+              <div className="grid grid-cols-2 gap-2">
                 {columns && columns.length > 0 ? (
                   columns.map((column) => (
                     <div
                       key={column}
                       draggable
                       onDragStart={() => handleDragStart(column)}
-                      className="p-3 bg-blue-50 border border-blue-200 rounded-sm cursor-move hover:bg-blue-100 transition-colors"
+                      className="p-3 bg-blue-50 border border-blue-200 rounded-sm cursor-move hover:bg-blue-100 transition-colors flex items-center justify-center"
                     >
                       <span className="font-medium text-blue-800">{column}</span>
-                      {/* <span>{typeof column}</span> */}
                     </div>
                   ))
                 ) : (
                   <div className="text-gray-500 text-sm">No columns available</div>
                 )}
               </div>
+
+              <GraphList chartTypes={chartTypes} selectedChartType={selectedChartType} setSelectedChartType={setSelectedChartType} />
+
             </CardContent>
           </Card>
 
           <div className="w-full flex flex-col gap-3">
             {/* Axis Configuration */}
-            <Card className="">
+            {/* <Card className="">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center justify-between">
                   <div>
                     Chart Configuration
-                  </div>
-                  <div className="justify-end flex gap-6">
-                    <Button
-                      onClick={() => {
-                        setXAxis("")
-                        setYAxis("")
-                      }}
-                      variant="outline"
-                      className=""
-                    >
-                      Clear Selection
-                    </Button>
+                  </div> */}
+            <div className="justify-end flex gap-6">
+              <Button
+                onClick={() => {
+                  setXAxis("")
+                  setYAxis("")
+                }}
+                variant="outline"
+                className=""
+              >
+                Clear Selection
+              </Button>
+            </div>
+            {/* </CardTitle>
+              </CardHeader> */}
+            {/* <CardContent className="flex flex-col gap-2 -mt-3"> */}
+            {/* X-Axis Drop Zone */}
+            <div className="flex items-center">
+              <label className="text-sm font-medium text-gray-700 mb-2 block w-20">X-Axis</label>
+              <div
+                onDragOver={handleDragOver}
+                onDrop={handleDropOnXAxis}
+                className={`p-4 w-full border-2 border-dashed rounded-lg h-15 flex items-center justify-center transition-colors ${xAxis ? "border-green-300 bg-green-50" : "border-gray-300 bg-gray-50 hover:border-gray-400"
+                  }`}
+              >
+                {xAxis ? (
+                  <Badge variant="secondary" className="bg-green-100 text-green-800">
+                    {xAxis}
+                  </Badge>
+                ) : (
+                  <>
+                    {/* <span>X-Axis</span> */}
+                    <div className="flex flex-col items-center">
+                      <span className="text-gray-500 text-sm">Drop column here</span>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
 
-                    {/* Chart Types */}
-                    <GraphList chartTypes={chartTypes} selectedChartType={selectedChartType} setSelectedChartType={setSelectedChartType} />
+            {/* Y-Axis Drop Zone */}
+            <div className="flex items-center">
+              <label className="text-sm font-medium text-gray-700 mb-2 block w-20">Y-Axis</label>
+              <div
+                onDragOver={handleDragOver}
+                onDrop={handleDropOnYAxis}
+                className={`p-4 w-full border-2 border-dashed rounded-lg h-15 flex items-center justify-center transition-colors ${yAxis ? "border-green-300 bg-green-50" : "border-gray-300 bg-gray-50 hover:border-gray-400"
+                  }`}
+              >
+                {yAxis ? (
+                  <Badge variant="secondary" className="bg-green-100 text-green-800">
+                    {yAxis}
+                  </Badge>
+                ) : (
+                  <div className="flex flex-col items-center">
+                    {/* <span>Y-Axis</span> */}
+                    <span className="text-gray-500 text-sm">Drop column here</span>
                   </div>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="grid grid-cols-2 px-10 gap-8">
-                {/* X-Axis Drop Zone */}
-                <div className="flex items-center">
-                  {/* <label className="text-sm font-medium text-gray-700 mb-2 block w-20">X-Axis</label> */}
-                  <div
-                    onDragOver={handleDragOver}
-                    onDrop={handleDropOnXAxis}
-                    className={`p-4 w-full border-2 border-dashed rounded-lg h-40 flex items-center justify-center transition-colors ${xAxis ? "border-green-300 bg-green-50" : "border-gray-300 bg-gray-50 hover:border-gray-400"
-                      }`}
-                  >
-                    {xAxis ? (
-                      <Badge variant="secondary" className="bg-green-100 text-green-800">
-                        {xAxis}
-                      </Badge>
-                    ) : (
-                      <div className="flex flex-col items-center">
-                        <span>X-Axis</span>
-                        <span className="text-gray-500 text-sm">Drop column here</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
+                )}
+              </div>
+            </div>
 
-                {/* Y-Axis Drop Zone */}
-                <div className="flex items-center">
-                  {/* <label className="text-sm font-medium text-gray-700 mb-2 block w-20">Y-Axis</label> */}
-                  <div
-                    onDragOver={handleDragOver}
-                    onDrop={handleDropOnYAxis}
-                    className={`p-4 w-full border-2 border-dashed rounded-lg h-40 flex items-center justify-center transition-colors ${yAxis ? "border-green-300 bg-green-50" : "border-gray-300 bg-gray-50 hover:border-gray-400"
-                      }`}
-                  >
-                    {yAxis ? (
-                      <Badge variant="secondary" className="bg-green-100 text-green-800">
-                        {yAxis}
-                      </Badge>
-                    ) : (
-                      <div className="flex flex-col items-center">
-                        <span>Y-Axis</span>
-                        <span className="text-gray-500 text-sm">Drop column here</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-              </CardContent>
-            </Card>
+            {/* </CardContent>
+            </Card> */}
             {/* Chart Display */}
-            <Card className="w-full">
+            <Card className="w-full h-full">
               <CardHeader>
                 <CardTitle className="text-xl">
                   {selectedChartType.charAt(0).toUpperCase() + selectedChartType.slice(1).replace("-", " ")} Chart
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="h-96">{renderChart()}</div>
+                <div className="h-[500px]">{renderChart()}</div>
               </CardContent>
             </Card>
           </div>
           {/* Data Preview */}
-          <Card className="w-80 h-full">
-            <CardHeader>
-              <CardTitle className="text-lg">Data Preview</CardTitle>
-            </CardHeader>
-            <CardContent className="overflow-auto">
-              <div className="h-full">
-                <div className="space-y-2">
-                  {sampleData && sampleData.length > 0 ? (
-                    sampleData.slice(0,).map((row, index) => (
-                      <div key={index} className="p-2 h-full rounded text-xs">
-                        {row &&
-                          Object.entries(row)
-                            .filter(([key]) => key !== "id")
-                            .slice(0,)
-                            .map(([key, value]) => (
-                              <div key={key} className="flex justify-between">
-                                <span className="font-medium">{key}:</span>
-                                <span>{value}</span>
-                              </div>
-                            ))}
-                        <Separator className="my-1" />
-                      </div>
-                    ))
-                  ) : (
-                    <div className="text-gray-500 text-sm">No data available</div>
-                  )}
-                  {/* {sampleData && sampleData.length > 0 && (
-                    <p className="text-xs text-gray-500 text-center">Showing 3 of {sampleData.length} rows</p>
-                    )} */}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
         </div>
       </div>
     </div>
