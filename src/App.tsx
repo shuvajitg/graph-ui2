@@ -411,64 +411,67 @@ export default function DataVisualizationDashboard() {
                   <div>
                     Chart Configuration
                   </div> */}
-            <div className="justify-end flex gap-6">
-              <Button
-                onClick={() => {
-                  setXAxis("")
-                  setYAxis("")
-                }}
-                variant="outline"
-                className=""
-              >
-                Clear Selection
-              </Button>
-            </div>
+
             {/* </CardTitle>
               </CardHeader> */}
             {/* <CardContent className="flex flex-col gap-2 -mt-3"> */}
             {/* X-Axis Drop Zone */}
-            <div className="flex items-center">
-              <label className="text-sm font-medium text-gray-700 mb-2 block w-20">X-Axis</label>
-              <div
-                onDragOver={handleDragOver}
-                onDrop={handleDropOnXAxis}
-                className={`p-4 w-full border-2 border-dashed rounded-lg h-15 flex items-center justify-center transition-colors ${xAxis ? "border-green-300 bg-green-50" : "border-gray-300 bg-gray-50 hover:border-gray-400"
-                  }`}
-              >
-                {xAxis ? (
-                  <Badge variant="secondary" className="bg-green-100 text-green-800">
-                    {xAxis}
-                  </Badge>
-                ) : (
-                  <>
-                    {/* <span>X-Axis</span> */}
+            <div className="flex w-full flex-row items-center gap-4">
+              <div className="flex items-center w-[50%]">
+                {/* <label className="text-sm font-medium text-gray-700 mb-2 block w-20">X-Axis</label> */}
+                <div
+                  onDragOver={handleDragOver}
+                  onDrop={handleDropOnXAxis}
+                  className={`p-4 w-full border-2 border-dashed rounded-lg h-15 flex items-center justify-center transition-colors ${xAxis ? "border-green-300 bg-green-50" : "border-gray-300 bg-gray-50 hover:border-gray-400"
+                    }`}
+                >
+                  {xAxis ? (
+                    <Badge variant="secondary" className="bg-green-100 text-green-800">
+                      {xAxis}
+                    </Badge>
+                  ) : (
+                    <>
+                      <div className="flex flex-col items-center">
+                        <span>X-Axis</span>
+                        <span className="text-gray-500 text-sm">Drop column here</span>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              {/* Y-Axis Drop Zone */}
+              <div className="flex items-center w-[50%]">
+                {/* <label className="text-sm font-medium text-gray-700 mb-2 block w-20">Y-Axis</label> */}
+                <div
+                  onDragOver={handleDragOver}
+                  onDrop={handleDropOnYAxis}
+                  className={`p-4 w-full border-2 border-dashed rounded-lg h-15 flex items-center justify-center transition-colors ${yAxis ? "border-green-300 bg-green-50" : "border-gray-300 bg-gray-50 hover:border-gray-400"
+                    }`}
+                >
+                  {yAxis ? (
+                    <Badge variant="secondary" className="bg-green-100 text-green-800">
+                      {yAxis}
+                    </Badge>
+                  ) : (
                     <div className="flex flex-col items-center">
+                      <span>Y-Axis</span>
                       <span className="text-gray-500 text-sm">Drop column here</span>
                     </div>
-                  </>
-                )}
+                  )}
+                </div>
               </div>
-            </div>
-
-            {/* Y-Axis Drop Zone */}
-            <div className="flex items-center">
-              <label className="text-sm font-medium text-gray-700 mb-2 block w-20">Y-Axis</label>
-              <div
-                onDragOver={handleDragOver}
-                onDrop={handleDropOnYAxis}
-                className={`p-4 w-full border-2 border-dashed rounded-lg h-15 flex items-center justify-center transition-colors ${yAxis ? "border-green-300 bg-green-50" : "border-gray-300 bg-gray-50 hover:border-gray-400"
-                  }`}
-              >
-                {yAxis ? (
-                  <Badge variant="secondary" className="bg-green-100 text-green-800">
-                    {yAxis}
-                  </Badge>
-                ) : (
-                  <div className="flex flex-col items-center">
-                    {/* <span>Y-Axis</span> */}
-                    <span className="text-gray-500 text-sm">Drop column here</span>
-                  </div>
-                )}
+              <div className="justify-end flex gap-6">
+                <Button
+                  onClick={() => {
+                    setXAxis("")
+                    setYAxis("")
+                  }}
+                  variant="outline"
+                  className="h-12"
+                >
+                  Clear Selection
+                </Button>
               </div>
             </div>
 
@@ -482,7 +485,7 @@ export default function DataVisualizationDashboard() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="h-[500px]">{renderChart()}</div>
+                <div className="h-[650px]">{renderChart()}</div>
               </CardContent>
             </Card>
           </div>
