@@ -20,7 +20,7 @@ function GraphList({ chartTypes, setSelectedChartType, selectedChartType, charts
         <div className="space-y-2 overflow-y-auto mt-4">
             <h1 className="text-xl font-semibold mb-6">Chart Types</h1>
             <div className="mb-6">
-                <div className="mb-3">No Axis requir</div>
+                <div className="mb-3">No Axis Requir</div>
                 <div className="grid grid-cols-5 gap-2">
                     {chartTypes && chartTypes.length > 0 ? (
                         chartTypes.map((chart) => {
@@ -50,7 +50,7 @@ function GraphList({ chartTypes, setSelectedChartType, selectedChartType, charts
                 </div>
             </div>
             <div className="mb-6">
-                <div className="mb-3">One Axis requir</div>
+                <div className="mb-3">One Axis Requir</div>
                 <div className="grid grid-cols-5 gap-2">
                     {chartTypes && chartTypes.length > 0 ? (
                         chartTypes.map((chart) => {
@@ -80,7 +80,7 @@ function GraphList({ chartTypes, setSelectedChartType, selectedChartType, charts
                 </div>
             </div>
             <div className="mb-6">
-                <div className="mb-3">Both Axis requir</div>
+                <div className="mb-3">Both Axis Requir</div>
                 <div className="grid grid-cols-5 gap-2">
                     {chartTypes && chartTypes.length > 0 ? (
                         chartTypes.map((chart) => {
