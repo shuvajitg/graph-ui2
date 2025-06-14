@@ -259,20 +259,22 @@ export default function DataVisualizationDashboard() {
     }
   }
 
+  // Some charts don't require both X and Y axes
+  const chartsRequiringBothAxes = [
+    "bar",
+    "line",
+    "area",
+    "scatter",
+    "heatmap",
+    "parallel-coordinates",
+    "swarm-plot",
+    "pie"
+  ]
+  const chartsRequiringOneAxis = ["treemap", "waffle", "calendar"]
+  const chartsRequiringNoAxes = ["chord", "circle-packing", "network", "tree", "radar"]
+
   const renderChart = () => {
     try {
-      // Some charts don't require both X and Y axes
-      const chartsRequiringBothAxes = [
-        "bar",
-        "line",
-        "area",
-        "scatter",
-        "heatmap",
-        "parallel-coordinates",
-        "swarm-plot",
-      ]
-      const chartsRequiringOneAxis = ["pie", "treemap", "waffle", "calendar"]
-      // const chartsRequiringNoAxes = ["chord", "circle-packing", "network", "tree", "radar"]
 
       if (chartsRequiringBothAxes.includes(selectedChartType) && (!xAxis || !yAxis)) {
         return (
@@ -295,7 +297,6 @@ export default function DataVisualizationDashboard() {
           </div>
         )
       }
-
       const chartProps = {
         data: sampleData || [],
         xKey: xAxis || "",
@@ -366,14 +367,6 @@ export default function DataVisualizationDashboard() {
   return (
     <div className="h-screen w-screen bg-gray-50 p-6">
       <div className="w-full h-full mx-auto space-y-6">
-        {/* <div className="text-center">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Advanced Data Visualization Dashboard</h1>
-          <p className="text-gray-600">
-            Drag and drop columns to create interactive charts with 16 different visualization types
-          </p>
-        </div> */}
-
-
         <div className="flex gap-6 w-full h-full">
           {/* Data Columns */}
           <Card className="w-96">
@@ -398,24 +391,18 @@ export default function DataVisualizationDashboard() {
                 )}
               </div>
 
-              <GraphList chartTypes={chartTypes} selectedChartType={selectedChartType} setSelectedChartType={setSelectedChartType} />
+              <GraphList
+                chartTypes={chartTypes}
+                selectedChartType={selectedChartType}
+                setSelectedChartType={setSelectedChartType}
+                chartsRequiringNoAxes={chartsRequiringNoAxes}
+                chartsRequiringOneAxis={chartsRequiringOneAxis}
+                chartsRequiringBothAxes={chartsRequiringBothAxes} />
 
             </CardContent>
           </Card>
 
           <div className="w-full flex flex-col gap-3">
-            {/* Axis Configuration */}
-            {/* <Card className="">
-              <CardHeader>
-                <CardTitle className="text-lg flex items-center justify-between">
-                  <div>
-                    Chart Configuration
-                  </div> */}
-
-            {/* </CardTitle>
-              </CardHeader> */}
-            {/* <CardContent className="flex flex-col gap-2 -mt-3"> */}
-            {/* X-Axis Drop Zone */}
             <div className="flex w-full flex-row items-center gap-4">
               <div className="flex items-center w-[50%]">
                 {/* <label className="text-sm font-medium text-gray-700 mb-2 block w-20">X-Axis</label> */}
@@ -485,11 +472,10 @@ export default function DataVisualizationDashboard() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="h-[650px]">{renderChart()}</div>
+                <div className="h-[630px]">{renderChart()}</div>
               </CardContent>
             </Card>
           </div>
-          {/* Data Preview */}
         </div>
       </div>
     </div>
