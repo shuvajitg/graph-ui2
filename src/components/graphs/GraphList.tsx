@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import type { ChartType } from "@/App"
+import type { ChartType } from "./Layout";
 
 
 type GraphListProps = {
