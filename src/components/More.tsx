@@ -13,6 +13,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Ellipsis } from "lucide-react"
+import { Suspense } from "react"
 
 function More({ handleDelite }: { handleDelite: () => void }) {
     return (
@@ -46,10 +47,12 @@ function More({ handleDelite }: { handleDelite: () => void }) {
                 <DropdownMenuItem>Support</DropdownMenuItem>
                 <DropdownMenuItem disabled>API</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => handleDelite()}>
-                    Delete
-                    <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-                </DropdownMenuItem>
+                <Suspense>
+                    <DropdownMenuItem onClick={() => handleDelite()}>
+                        Delete
+                        <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                    </DropdownMenuItem>
+                </Suspense>
             </DropdownMenuContent>
         </DropdownMenu>
     )
